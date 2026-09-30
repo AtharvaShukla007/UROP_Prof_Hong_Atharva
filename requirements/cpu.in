@@ -1,0 +1,12 @@
+# Source list for requirements/cpu.txt (the pinned, installed-and-tested lock).
+# Regenerate with: uv pip compile requirements/cpu.in -o requirements/cpu.txt
+pytest>=8.0
+pyyaml>=6.0
+python-dotenv>=1.0
+numpy>=1.26
+jsonschema>=4.20
+nbformat>=5.10
+nbclient>=0.10
+ipykernel>=6.29
+tiktoken>=0.7
+packaging>=23

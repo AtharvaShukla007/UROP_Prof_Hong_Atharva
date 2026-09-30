@@ -1,0 +1,41 @@
+# CANDIDATE / UNVERIFIED — NOT installed or tested in this session.
+#
+# This is a proposal for the Kaggle GPU notebook environment, assembled from
+# the upstream AutoTraceGT requirements.txt (external/autotracegt_upstream,
+# version ranges as shipped by the authors, not exact pins) plus a candidate
+# local-serving + hidden-state stack for later phases. Do NOT treat this file
+# as evidence the environment works on Kaggle's T4 image. Before using it:
+#   1. Check Kaggle's preinstalled torch/CUDA build (`pip show torch`,
+#      `python -c "import torch; print(torch.__version__, torch.version.cuda)"`)
+#      and prefer it over reinstalling torch — reinstalling can silently break
+#      the CUDA build already matched to Kaggle's driver.
+#   2. Pin exact versions once resolved on Kaggle (this file uses the
+#      upstream authors' ranges, which are not reproducible pins).
+#   3. Record what actually installed in docs/experiment_log.md.
+
+# --- AutoTraceGT upstream (autotracegt/requirements.txt, copied verbatim) ---
+openai>=1.60,<3
+python-dotenv>=1.0
+numpy>=1.26
+huggingface-hub>=0.25
+scikit-learn>=1.4
+
+# --- Needed now: real tokenizer for the notebook's context-limit check ---
+# (notebooks/01_kaggle_text_pilot.ipynb Section 5 -- AutoTokenizer only,
+# no model weights downloaded by this package on its own)
+transformers>=4.44
+
+# --- Needed now: correct torch-version comparison (urop.env_check) for the
+# Section 3 vLLM/torch compatibility check -- almost certainly already
+# present (pip itself depends on it), declared explicitly rather than relied
+# on transitively.
+packaging>=23
+
+# --- Needed now: schema validation for the opt-in structured-JSON output
+# mode (urop.structured_coding) -- see docs/methods_and_deviations.md.
+jsonschema>=4.20
+
+# --- Candidate local serving + hidden-state extraction (unverified on T4) ---
+# vllm                      # candidate local OpenAI-compatible server; verify T4 support before install
+# accelerate
+# tokenizers                 # transformers already pulls in a compatible tokenizers build

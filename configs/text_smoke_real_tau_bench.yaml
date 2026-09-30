@@ -1,0 +1,25 @@
+# Text-coding smoke test against REAL converted tau-bench data -- still
+# backend=mock (no model call), but exercises the pipeline on real
+# trajectories instead of the synthetic fixture. Only runnable after
+# `python scripts/convert_tau_bench.py` has produced
+# data/tau_bench/tau_bench_train_3.jsonl (git-ignored -- not present in a
+# fresh checkout). Use configs/text_smoke.yaml (synthetic fixture) for a
+# setup that always runs, e.g. in CI.
+stage: text_smoke_real_tau_bench
+backend: mock
+domain: tau_bench_retail
+input_path: data/tau_bench/tau_bench_train_3.jsonl
+seed: 42
+train_frac: 0.8
+max_trajectories: 3
+chunk_size: 50
+budget:
+  max_seconds: 1800
+  max_calls: 10
+  json_retries_total_attempts: 2  # upstream MAX_JSON_RETRIES counts TOTAL attempts (1 initial + 1 repair = 2), not repairs alone
+notes: >
+  Real tau-bench retail trajectories (gpt-4o agent, test-split tasks, one
+  trial each) converted by scripts/convert_tau_bench.py -- see
+  data/tau_bench/conversion_report.json for provenance/counts. backend=mock
+  still means no model was called; this only proves the CPU pipeline handles
+  real data shape/size correctly.

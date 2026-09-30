@@ -1,0 +1,28 @@
+# Real text-coding pilot -- CANDIDATE DESIGN, not yet runnable as-is.
+#
+# Requires, before this can actually run:
+#   - real tau-bench trajectories under data/ (not obtained yet -- see
+#     docs/phase0_findings.md, "Outstanding Phase 0 checks")
+#   - a reachable local OpenAI-compatible endpoint, registered via
+#     urop.autotrace_adapter.register_local_endpoint(base_url=...)
+#   - explicit user go-ahead (handoff compute plan: this is a "user-triggered
+#     run", not something to start automatically)
+#
+# Never point `backend` at openai/deepseek/gemini here without a separate,
+# explicit cost approval -- default paid API budget is zero.
+stage: text_pilot
+backend: local
+endpoint_base_url: "http://localhost:8000/v1" # placeholder: set to the real local server
+domain: tau_bench
+input_path: data/tau_bench_train_1000.jsonl # placeholder path -- file does not exist yet
+seed: 42
+train_frac: 0.8
+max_trajectories: 30 # handoff compute table, "Text pilot": at most 30 training trajectories
+chunk_size: 50
+budget:
+  max_seconds: 7200 # 2 hours
+  max_calls: 200
+  json_retries_total_attempts: 2  # upstream MAX_JSON_RETRIES counts TOTAL attempts (1 initial + 1 repair = 2), not repairs alone
+notes: >
+  Freeze this config only after a clean text_smoke.yaml run. Treat it as a
+  design artifact until every item above is checked off in docs/phase0_findings.md.

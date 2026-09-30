@@ -1,0 +1,19 @@
+# Text-coding smoke test -- mock backend, CPU-only engineering check.
+# NOT a research run: backend=mock means no model is ever called. This only
+# proves the wiring (budget, resume cache, manifest, reporting refusal)
+# works before any real inference is authorized. See docs/compute_budget.md.
+stage: text_smoke
+backend: mock
+domain: synthetic
+input_path: tests/fixtures/tiny_trajectories.jsonl
+seed: 42
+train_frac: 0.8
+max_trajectories: 3
+chunk_size: 50
+budget:
+  max_seconds: 1800 # 30 min stop budget (handoff compute table: "Text smoke test")
+  max_calls: 10
+  json_retries_total_attempts: 2  # upstream MAX_JSON_RETRIES counts TOTAL attempts (1 initial + 1 repair = 2), not repairs alone
+notes: >
+  Mirrors the upstream open-coding chunk size default (50 messages) but runs
+  only against MockCoder. Freeze text_pilot.yaml only after this is clean.

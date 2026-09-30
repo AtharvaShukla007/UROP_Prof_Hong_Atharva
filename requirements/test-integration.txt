@@ -1,0 +1,17 @@
+# Extra deps for tests/test_open_coding_integration.py only -- these are
+# external/autotracegt_upstream's OWN import-time dependencies (openai,
+# python-dotenv, huggingface_hub), needed to import agents.open_coding for
+# real and talk to tests/fake_local_server.py over a real socket. Not
+# needed for the rest of the CPU suite, and NOT the candidate GPU/serving
+# stack in kaggle-candidate.txt.
+#
+#   uv pip install -r requirements/test-integration.txt --python <your venv>
+#   pytest tests/test_open_coding_integration.py -v
+#
+# Installed and run this session against a throwaway venv on a separate
+# drive (D:) because C: had 0 bytes free at the time -- see
+# docs/experiment_log.md. Install into the main project .venv instead once
+# there's room, if you want these tests to run as part of the normal suite.
+openai>=1.60,<3
+python-dotenv>=1.0
+huggingface-hub>=0.25

@@ -1,0 +1,21 @@
+# NOT RUNNABLE YET -- design placeholder only.
+#
+# Phase 1 (generating fresh agent trajectories with an open-weight model
+# through the tau-bench harness) has unresolved prerequisites -- see the
+# handoff's "Outstanding Phase 0 checks": tau-bench task count / write-tool
+# list / policy text unverified, Qwen2.5-*-Instruct tool-call reliability
+# under vllm --enable-auto-tool-choice --tool-call-parser hermes unverified,
+# Kaggle internet access unconfirmed. No script in this repo reads this
+# config yet. Do not wire one up until those are checked AND the user has
+# given a separate, explicit go-ahead for GPU spend (handoff compute plan:
+# "Optional fresh-agent smoke ... separate go-ahead").
+stage: agent_smoke
+status: not_ready
+blocked_on:
+  - "tau-bench repo inspected: task count, write-tool list, policy text"
+  - "Qwen2.5-*-Instruct + vllm --enable-auto-tool-choice --tool-call-parser hermes verified on a Kaggle T4"
+  - "Kaggle internet access confirmed"
+  - "explicit user go-ahead for GPU spend"
+episodes: 5
+budget:
+  max_seconds: 3600 # 1 hour, per the compute plan -- not yet authorized

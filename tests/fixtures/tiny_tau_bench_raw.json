@@ -1,0 +1,69 @@
+[
+  {
+    "task_id": 0,
+    "reward": 1.0,
+    "trial": 0,
+    "info": {"task": {"user_id": "synthetic_user_0"}, "source": "user"},
+    "traj": [
+      {"role": "system", "content": "Synthetic retail policy for testing only."},
+      {"role": "user", "content": "I want to cancel order #S001."},
+      {"content": null, "role": "assistant", "tool_calls": [{"function": {"arguments": "{\"order_id\": \"#S001\", \"reason\": \"no longer needed\"}", "name": "cancel_pending_order"}, "id": "call_1", "type": "function"}]},
+      {"role": "tool", "tool_call_id": "call_1", "name": "cancel_pending_order", "content": "{\"order_id\": \"#S001\", \"status\": \"cancelled\"}"},
+      {"role": "assistant", "content": "Your order has been cancelled."}
+    ]
+  },
+  {
+    "task_id": 1,
+    "reward": 0.0,
+    "trial": 0,
+    "info": {"task": {"user_id": "synthetic_user_1"}, "source": "user"},
+    "traj": [
+      {"role": "system", "content": "Synthetic retail policy for testing only."},
+      {"role": "user", "content": "Return order #S002."},
+      {"role": "assistant", "content": "I was unable to locate that order."}
+    ]
+  },
+  {
+    "task_id": 0,
+    "reward": 1.0,
+    "trial": 1,
+    "info": {"task": {"user_id": "synthetic_user_0"}, "source": "user"},
+    "traj": [
+      {"role": "system", "content": "Synthetic retail policy for testing only."},
+      {"role": "user", "content": "I want to cancel order #S001 again."},
+      {"role": "assistant", "content": "Your order has been cancelled."}
+    ]
+  },
+  {
+    "task_id": 2,
+    "trial": 0,
+    "info": {"task": {"user_id": "synthetic_user_2"}, "source": "user"},
+    "traj": [
+      {"role": "system", "content": "Synthetic retail policy for testing only."},
+      {"role": "user", "content": "This record has no 'reward' key and must be rejected."},
+      {"role": "assistant", "content": "n/a"}
+    ]
+  },
+  {
+    "task_id": 3,
+    "reward": 1.0,
+    "trial": 0,
+    "info": {"task": {"user_id": "synthetic_user_3"}, "source": "user"},
+    "traj": [
+      {"role": "user", "content": "This record has the wrong first-message role (user instead of system) and must be rejected."},
+      {"role": "system", "content": "Swapped roles on purpose."},
+      {"role": "assistant", "content": "n/a"}
+    ]
+  },
+  {
+    "task_id": 4,
+    "reward": 0.5,
+    "trial": 0,
+    "info": {"task": {"user_id": "synthetic_user_4"}, "source": "user"},
+    "traj": [
+      {"role": "system", "content": "Synthetic retail policy for testing only."},
+      {"role": "user", "content": "This record has a non-binary reward (0.5) and must be rejected."},
+      {"role": "assistant", "content": "n/a"}
+    ]
+  }
+]
